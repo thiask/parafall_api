@@ -9,4 +9,6 @@ app.use(cors());
 
 app.use(router);
 
-export { app };
+app.listen(8899, () => {
+    console.log(`Server start ${8899}`);
+});

@@ -1,8 +1,14 @@
-import mongoose from 'mongoose';
+import { Sequelize } from 'sequelize';
 
-mongoose.connect('mongodb://10.0.0.31:27017/chat', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+const sequelize = new Sequelize('parafall', 'root', '', {
+    host: 'localhost',
+    dialect: 'mysql',
+    dialectOptions: {
+        useUTC: false, //for reading from database
+        dateStrings: true,
+        typeCast: true,
+    },
+    timezone: '-03:00'
+});
 
-export default mongoose;
+export { sequelize, Sequelize };
