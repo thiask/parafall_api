@@ -32,6 +32,6 @@ produto.belongsTo(usuario, { foreignKey: 'id_usr_cad' });
 produto.belongsTo(tipo, { foreignKey: 'tipo' });
 produto.belongsTo(unidade, { foreignKey: 'unidade' });
 
-produto.sync({ alter: true });
+// produto.sync({ alter: true });
 
 export { produto };
