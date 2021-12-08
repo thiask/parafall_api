@@ -8,4 +8,11 @@ router_tipo.post('/cadastrar', async (req, res) => {
     res.json(result);
 })
 
+router_tipo.get('/listar', async (req, res) => {
+    const result = await tipo.findAll({
+        attributes: [['id', 'code'], ['descricao', 'name']] 
+    });
+    res.json(result);
+})
+
 export { router_tipo };
