@@ -15,6 +15,11 @@ router_tipo.get('/listar', async (req, res) => {
     res.json(result);
 })
 
+router_tipo.get('/listarNew', async (req, res) => {
+    const result = await tipo.findAll();
+    res.json(result);
+})
+
 router_tipo.put('/alterar', async (req, res) => {
     const result = await tipo.update(
         req.body,
