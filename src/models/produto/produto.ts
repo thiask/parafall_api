@@ -23,6 +23,18 @@ const produto = sequelize.define('produtos', {
     unidade: {
         type: Sequelize.INTEGER
     },
+    valorFiliado: {
+        type: Sequelize.DOUBLE,
+        defaultValue: 0
+    },
+    valorConvidado: {
+        type: Sequelize.DOUBLE,
+        defaultValue: 0
+    },
+    valorVisitante: {
+        type: Sequelize.DOUBLE,
+        defaultValue: 0
+    },
     id_usr_cad: {
         type: Sequelize.INTEGER
     },
