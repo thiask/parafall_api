@@ -4,7 +4,8 @@ import { route_version } from "./version";
 import { router_produtos } from "./produtos/produtos.routes";
 import { router_tipo } from "./produtos/tipo.routes";
 import { router_unidade } from "./produtos/unidade.routes";
-
+import { router_cliente } from "./clientes.routes";
+import { router_venda } from "./vendas.routes";
 
 const router = Router();
 
@@ -25,5 +26,7 @@ router.use('/version', route_version);
 router.use('/produtos', router_produtos);
 router.use('/tipos', router_tipo);
 router.use('/unidades', router_unidade);
+router.use('/clientes', router_cliente);
+router.use('/vendas', router_venda);
 
 export { router }

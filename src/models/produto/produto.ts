@@ -23,6 +23,18 @@ const produto = sequelize.define('produtos', {
     unidade: {
         type: Sequelize.INTEGER
     },
+    valorFiliado: {
+        type: Sequelize.DOUBLE,
+        defaultValue: 0
+    },
+    valorConvidado: {
+        type: Sequelize.DOUBLE,
+        defaultValue: 0
+    },
+    valorVisitante: {
+        type: Sequelize.DOUBLE,
+        defaultValue: 0
+    },
     id_usr_cad: {
         type: Sequelize.INTEGER
     },
@@ -32,6 +44,6 @@ produto.belongsTo(usuario, { foreignKey: 'id_usr_cad' });
 produto.belongsTo(tipo, { foreignKey: 'tipo' });
 produto.belongsTo(unidade, { foreignKey: 'unidade' });
 
-produto.sync({ alter: true });
+// produto.sync({ alter: true });
 
 export { produto };

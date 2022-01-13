@@ -43,4 +43,11 @@ router_produtos.get('/listar', async (req, res) => {
     res.json(result);
 });
 
+router_produtos.get('/listarCustom', async (req, res) => {
+    const result = await produto.findAll({
+        attributes: [['id', 'code'], ['descricao', 'name'], ['valor', 'valor']]
+    });
+    res.json(result);
+})
+
 export { router_produtos };
