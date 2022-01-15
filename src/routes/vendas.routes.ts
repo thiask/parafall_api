@@ -53,6 +53,14 @@ router_venda.post('/itens_venda/cadastrar', async (req, res) => {
     const valorVenda = req.body.valor * req.body.qtd;
     console.log(req.body);
 
+    await produto.update(
+        { qtd: Sequelize.literal(`qtd - ${req.body.qtd}`) },
+        {
+            where: {
+                id: req.body.idProduto
+            }
+        });
+
     await venda.update(
         { valor: Sequelize.literal(`valor + ${valorVenda}`) },
         {
@@ -68,6 +76,14 @@ router_venda.post('/itens_venda/cadastrar', async (req, res) => {
 
 router_venda.put('/itens_venda/acresentar', async (req, res) => {
     const valorVenda = req.body.valor * req.body.qtd;
+
+    await produto.update(
+        { qtd: Sequelize.literal(`qtd - ${req.body.qtd}`) },
+        {
+            where: {
+                id: req.body.idProduto
+            }
+        });
 
     await venda.update(
         { valor: Sequelize.literal(`valor + ${valorVenda}`) },
