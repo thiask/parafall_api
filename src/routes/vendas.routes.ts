@@ -14,7 +14,7 @@ router_venda.post('/cadastrar', async (req, res) => {
 });
 
 router_venda.get('/listar', async (req, res) => {
-    const result = await sequelize.query(`SELECT vendas.*, clientes.nome FROM vendas
+    const result = await sequelize.query(`SELECT vendas.*, clientes.nome, clientes.tipoCliente FROM vendas
     INNER JOIN clientes on clientes.id = vendas.idCliente`);
 
     res.json(result[0]);
@@ -32,8 +32,21 @@ router_venda.get('/listar/:id', async (req, res) => {
             },
         ]
     });
-    
+
     res.json(result);
+});
+
+router_venda.put('/finalizar', async (req, res) => {
+
+    await venda.update(
+        { status: 'Finalizada' },
+        {
+            where: {
+                id: req.body.idVenda
+            }
+        });
+
+    res.json({ status: 1 });
 });
 
 router_venda.post('/itens_venda/cadastrar', async (req, res) => {

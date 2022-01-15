@@ -43,9 +43,15 @@ router_produtos.get('/listar', async (req, res) => {
     res.json(result);
 });
 
-router_produtos.get('/listarCustom', async (req, res) => {
+router_produtos.get('/listarCustom/:tipoCliente', async (req, res) => {
+    let valor: string = 'valorFiliado';
+    if (req.params.tipoCliente == 'Filiado') valor = 'valorFiliado';
+    if (req.params.tipoCliente == 'Convidado') valor = 'valorConvidado';
+    if (req.params.tipoCliente == 'Visitante') valor = 'valorVisitante';
+    
+
     const result = await produto.findAll({
-        attributes: [['id', 'code'], ['descricao', 'name'], ['valor', 'valor']]
+        attributes: [['id', 'code'], ['descricao', 'name'], [valor, 'valor']]
     });
     res.json(result);
 })

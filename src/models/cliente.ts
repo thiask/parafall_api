@@ -45,7 +45,7 @@ const cliente = sequelize.define('clientes', {
     observacoes: {
         type: Sequelize.STRING
     },
-    id_usr_cad: {
+    idUsrCaed: {
         type: Sequelize.INTEGER
     }
 })

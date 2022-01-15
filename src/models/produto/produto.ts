@@ -35,12 +35,12 @@ const produto = sequelize.define('produtos', {
         type: Sequelize.DOUBLE,
         defaultValue: 0
     },
-    id_usr_cad: {
+    idUsrCad: {
         type: Sequelize.INTEGER
     },
 })
 
-produto.belongsTo(usuario, { foreignKey: 'id_usr_cad' });
+produto.belongsTo(usuario, { foreignKey: 'idUsrCad' });
 produto.belongsTo(tipo, { foreignKey: 'tipo' });
 produto.belongsTo(unidade, { foreignKey: 'unidade' });
 
