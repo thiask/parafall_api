@@ -73,19 +73,17 @@ router_usuarios.get('/permissao', async (req, res) => {
 
     const [scheme, token] = parts;
 
-    jwt.verify(token, authConfig.secret, (err: any, decoded: any) => {
+    jwt.verify(token, authConfig.secret, async (err: any, decoded: any) => {
         if (err) return res.status(401).send({ error: 'Token inválido', msg: err });
 
-        req.body.idUsrCad = decoded.id;
-
-        console.log(req.body.idUsrCad);
+        const result = await usuario.findAll({
+            where: {
+                id: decoded.id
+            },
+        });
+        res.json(result);
     })
-    const result = await usuario.findAll({
-        where: {
-            id: req.body.idUsrCad
-        },
-    });
-    res.json(result);
+
 });
 
 router_usuarios.get('/listarCustom', async (req, res) => {
