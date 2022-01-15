@@ -10,12 +10,17 @@ const usuario = sequelize.define('usuarios', {
     nome: {
         type: Sequelize.STRING
     },
+    telefone: {
+        type: Sequelize.STRING
+    },
     senha: {
+        type: Sequelize.STRING
+    },
+    nivel: {
         type: Sequelize.STRING
     }
 })
 
-// usuario.sync({alter: true});
-
+// usuario.sync({ alter: true });
 
 export { usuario };
