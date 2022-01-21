@@ -47,7 +47,7 @@ router_usuarios.post('/login/', async (req, res) => {
     if (result != null) {
 
         const token = user.createToken(result.id);
-        res.json({ status: 1, token: token });
+        res.json({ status: 1, token: token, user: result });
 
     } else {
         res.json({ status: 0 });

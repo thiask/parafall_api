@@ -9,25 +9,36 @@ import { router_venda } from "./vendas.routes";
 import { router_usuarios } from "./usuarios";
 import { router_forma_pag } from "./forma_pag.routes";
 import { Middleware } from "../middleware/Middleware";
+const ip = new Ip();
 
 const middleware = new Middleware();
 
 const router = Router();
 
-router.use('*', (req, res, next) => {
-    const ip = new Ip();
+router.get('/validaIP', async (req, res, next) => {
+
 
     ip.setIp(req.socket.remoteAddress);
 
-    if (!ip.validateIp()) {
+    const valid = await ip.validateIp();
 
-        res.status(403).send({ msg: 'IP block' });
+    if (!valid) {
+        res.json(false);
         console.log(`IP: ${ip.getIp()} - BLOCK`);
     }
-    else next();
+
+    else res.json(true);
 })
+
 router.use('/usuarios', router_usuarios);
 router.use(middleware.validToken);
+
+router.put('/ip', (req, res) => {
+    ip.setIp(req.socket.remoteAddress);
+    const result = ip.setAcessIP();
+    res.json(result);
+});
+
 router.use('/version', route_version);
 router.use('/produtos', router_produtos);
 router.use('/tipos', router_tipo);
