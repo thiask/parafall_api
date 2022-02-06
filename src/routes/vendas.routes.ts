@@ -74,6 +74,29 @@ router_venda.post('/itens_venda/cadastrar', async (req, res) => {
     res.json({ status: 1 });
 });
 
+router_venda.delete('/itens_venda/delete/:id', async (req, res) => {
+    const item: any = await itens_venda.findOne({ where: { id: req.params.id } });
+
+    await produto.update(
+        { qtd: Sequelize.literal(`qtd + ${item.qtd}`) },
+        {
+            where: {
+                id: item.idProduto
+            }
+        });
+
+    await venda.update(
+        { valor: Sequelize.literal(`valor - ${item.qtd * item.valor}`) },
+        {
+            where: {
+                id: item.idVenda
+            }
+        });
+
+    await itens_venda.destroy({ where: { id: req.params.id } });
+    res.json("OK");
+})
+
 router_venda.put('/itens_venda/acresentar', async (req, res) => {
     const valorVenda = req.body.valor * req.body.qtd;
 
