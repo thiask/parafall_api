@@ -59,9 +59,12 @@ router_produtos.get('/listarCustom/:tipoProduto/:idPlano', async (req, res) => {
     if (req.params.tipoProduto == '4' || req.params.tipoProduto == '6')
         aux = `valorFiliado - (valorFiliado * ${plan.descontoArmas / 100}) as valor`;
 
+    if (req.params.idPlano == '7') aux = 'valorVisitante as valor';
+    if (req.params.idPlano == '8') aux = 'valorConvidado as valor';
+
 
     const result = await sequelize.query(`SELECT id as code, descricao as name, ${aux} from produtos where produtos.tipo = ${req.params.tipoProduto}`);
-    console.log(aux);
+    
     res.json(result[0]);
 })
 
