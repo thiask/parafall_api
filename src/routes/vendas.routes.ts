@@ -14,8 +14,10 @@ router_venda.post('/cadastrar', async (req, res) => {
 });
 
 router_venda.get('/listar', async (req, res) => {
-    const result = await sequelize.query(`SELECT vendas.*, clientes.nome, clientes.tipoCliente FROM vendas
-    INNER JOIN clientes on clientes.id = vendas.idCliente order by vendas.id desc`);
+    const result = await sequelize.query(`SELECT vendas.*, clientes.nome, clientes.tipoCliente, planos.descricao as plano FROM vendas
+    INNER JOIN clientes on clientes.id = vendas.idCliente 
+    INNER JOIN planos on planos.id = clientes.idPlano
+    order by vendas.id desc`);
 
     res.json(result[0]);
 });

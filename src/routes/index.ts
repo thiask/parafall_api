@@ -9,6 +9,7 @@ import { router_venda } from "./vendas.routes";
 import { router_usuarios } from "./usuarios";
 import { router_forma_pag } from "./forma_pag.routes";
 import { Middleware } from "../middleware/Middleware";
+import { router_plano } from "./planos/planos";
 const ip = new Ip();
 
 const middleware = new Middleware();
@@ -21,7 +22,7 @@ router.get('/validaIP', async (req, res, next) => {
     ip.setIp(req.socket.remoteAddress);
 
     const valid = await ip.validateIp();
-
+    
     if (!valid) {
         res.json(false);
         console.log(`IP: ${ip.getIp()} - BLOCK`);
@@ -36,6 +37,7 @@ router.use(middleware.validToken);
 router.put('/ip', (req, res) => {
     ip.setIp(req.socket.remoteAddress);
     const result = ip.setAcessIP();
+    console.log('aqui');
     res.json(result);
 });
 
@@ -46,5 +48,6 @@ router.use('/unidades', router_unidade);
 router.use('/clientes', router_cliente);
 router.use('/vendas', router_venda);
 router.use('/formaPagamento', router_forma_pag);
+router.use('/planos', router_plano);
 
 export { router }

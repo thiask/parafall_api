@@ -1,9 +1,8 @@
 
 import Sequelize from 'sequelize';
-
 import { sequelize } from '../config/db';
-
 import { usuario } from './usuario';
+import { plano } from './planos';
 
 const cliente = sequelize.define('clientes', {
     nome: {
@@ -30,6 +29,9 @@ const cliente = sequelize.define('clientes', {
     rg: {
         type: Sequelize.STRING
     },
+    rg_emissor: {
+        type: Sequelize.STRING
+    },
     estado_civil: {
         type: Sequelize.STRING
     },
@@ -45,12 +47,27 @@ const cliente = sequelize.define('clientes', {
     observacoes: {
         type: Sequelize.STRING
     },
-    idUsrCaed: {
+    idPlano: {
         type: Sequelize.INTEGER
+    },
+    idUsrCad: {
+        type: Sequelize.INTEGER
+    },
+    mensalidade_anuidade: {
+        type: Sequelize.STRING
+    },
+    dependente: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+    },
+    idFiliadoDependent: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
     }
 })
 
 cliente.belongsTo(usuario, { foreignKey: 'id_usr_cad' });
+cliente.belongsTo(plano, { foreignKey: 'idPlano' });
 
 // cliente.sync({ alter: true });
 
