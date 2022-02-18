@@ -23,7 +23,7 @@ const itens_pacote = sequelize.define('itens_pacote', {
 
 itens_pacote.belongsTo(usuario, { foreignKey: 'idUsrCad' });
 itens_pacote.belongsTo(produto, { foreignKey: 'idProduto' });
-itens_pacote.belongsTo(pacote, { foreignKey: 'idPacote' });
+itens_pacote.belongsTo(pacote, { foreignKey: 'idPacote', onDelete: 'cascade' });
 
 // itens_pacote.sync({ alter: true });
 
