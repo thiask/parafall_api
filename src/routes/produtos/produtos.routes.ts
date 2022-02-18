@@ -45,6 +45,13 @@ router_produtos.get('/listar', async (req, res) => {
     res.json(result);
 });
 
+router_produtos.get('/listarProdutosPacotes/:tipoProduto', async (req, res) => {
+
+    const result = await sequelize.query(`SELECT id as code, descricao as name from produtos where produtos.tipo = ${req.params.tipoProduto}`);
+
+    res.json(result[0]);
+})
+
 router_produtos.get('/listarCustom/:tipoProduto/:idPlano', async (req, res) => {
 
     const plan: any = await plano.findOne({
@@ -64,7 +71,7 @@ router_produtos.get('/listarCustom/:tipoProduto/:idPlano', async (req, res) => {
 
 
     const result = await sequelize.query(`SELECT id as code, descricao as name, ${aux} from produtos where produtos.tipo = ${req.params.tipoProduto}`);
-    
+
     res.json(result[0]);
 })
 
