@@ -46,6 +46,7 @@ router_pacotes.put('/alterar', async (req, res) => {
 });
 
 router_pacotes.delete('/deletar/:id', async (req, res) => {
+    const result2 = await itens_pacote.destroy({ where: { idPacote: req.params.id } });
     const result = await pacote.destroy({ where: { id: req.params.id } });
     res.json(result);
 });
