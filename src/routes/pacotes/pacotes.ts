@@ -59,6 +59,15 @@ router_pacotes.get('/listarItens/:idPacote', async (req, res) => {
     res.json(result[0]);
 });
 
+router_pacotes.get('/listar/custom/:tipoCliente', async (req, res) => {
+    let tipoCliente: any = 'valorConvidado';
+    tipoCliente = req.params.tipoCliente == '7' && 'valorVisitante';
+
+    const result = await sequelize.query(`SELECT id as code, descricao as name, ${tipoCliente} as valor from pacotes`);
+
+    res.json(result[0]);
+})
+
 router_pacotes.get('/listar', async (req, res) => {
     const result = await pacote.findAll({
         include: [

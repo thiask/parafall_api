@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { plano } from "../../models/planos";
+import { sequelize } from "../../config/db";
 
 const router_plano = Router();
 
