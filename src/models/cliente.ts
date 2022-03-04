@@ -63,6 +63,9 @@ const cliente = sequelize.define('clientes', {
     idFiliadoDependent: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+    },
+    idConvidante: {
+        type: Sequelize.INTEGER
     }
 })
 

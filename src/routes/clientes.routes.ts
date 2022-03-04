@@ -2,6 +2,7 @@ import { Router } from "express";
 import { cliente } from '../models/cliente';
 import { usuario } from '../models/usuario';
 import { plano } from "../models/planos";
+import { convidado } from "../models/convidados";
 import xlsx from 'xlsx';
 
 const router_cliente = Router();
@@ -47,8 +48,9 @@ router_cliente.post('/importarPlanilha', async (req, res) => {
 })
 
 router_cliente.post('/', async (req, res) => {
-    const result = await cliente.create(req.body);
+    const result: any = await cliente.create(req.body);
 
+    await convidado.create({ idConvidado: result.id, idConvidante: req.body.idConvidante });
     res.json({ status: 1, data: result });
 })
 
