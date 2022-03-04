@@ -46,7 +46,7 @@ router_produtos.get('/listar', async (req, res) => {
 });
 
 router_produtos.get('/listarProdutosPacotes/:tipoProduto', async (req, res) => {
-
+    
     const result = await sequelize.query(`SELECT id as code, descricao as name from produtos where produtos.tipo = ${req.params.tipoProduto}`);
 
     res.json(result[0]);
@@ -65,7 +65,7 @@ router_produtos.get('/listarCustom/:tipoProduto/:idPlano', async (req, res) => {
 
     if (req.params.tipoProduto == '4' || req.params.tipoProduto == '6')
         aux = `valorFiliado - (valorFiliado * ${plan.descontoArmas / 100}) as valor`;
-
+    
     if (req.params.idPlano == '7') aux = 'valorVisitante as valor';
     if (req.params.idPlano == '8') aux = 'valorConvidado as valor';
 
