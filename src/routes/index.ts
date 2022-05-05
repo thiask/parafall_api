@@ -11,6 +11,7 @@ import { router_forma_pag } from "./forma_pag.routes";
 import { Middleware } from "../middleware/Middleware";
 import { router_plano } from "./planos/planos";
 import { router_pacotes } from "./pacotes/pacotes";
+import router_dash_board from "./dash_board.routes";
 const ip = new Ip();
 
 const middleware = new Middleware();
@@ -51,5 +52,6 @@ router.use('/vendas', router_venda);
 router.use('/formaPagamento', router_forma_pag);
 router.use('/planos', router_plano);
 router.use('/pacotes', router_pacotes);
+router.use('/dashBoard', router_dash_board);
 
 export { router }

@@ -49,8 +49,9 @@ router_cliente.post('/importarPlanilha', async (req, res) => {
 
 router_cliente.post('/', async (req, res) => {
     const result: any = await cliente.create(req.body);
-
-    await convidado.create({ idConvidado: result.id, idConvidante: req.body.idConvidante });
+    
+    if (req.body.idConvidante !== '')
+        await convidado.create({ idConvidado: result.id, idConvidante: req.body.idConvidante });
     res.json({ status: 1, data: result });
 })
 
