@@ -15,7 +15,7 @@ router_dash_board.get('/estatistics/vendas/:dataInicial/:dataFinal/:idCliente', 
 
     const aux = getIdClient();
 
-    const sql = `SELECT count(itens_vendas.id) as qtdVendida, sum(itens_vendas.valor) as totalVendido, produtos.descricao FROM vendas
+    const sql = `SELECT count(itens_vendas.id) as qtdVendida, sum(itens_vendas.valor * itens_vendas.qtd) as totalVendido, produtos.descricao FROM vendas
     INNER JOIN itens_vendas on itens_vendas.idVenda = vendas.id
     INNER JOIN produtos on produtos.id = itens_vendas.idProduto
     INNER JOIN clientes on clientes.id = vendas.idCliente
