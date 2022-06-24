@@ -49,7 +49,7 @@ router_cliente.post('/importarPlanilha', async (req, res) => {
 
 router_cliente.post('/', async (req, res) => {
     const result: any = await cliente.create(req.body);
-    
+
     if (req.body.idConvidante !== '')
         await convidado.create({ idConvidado: result.id, idConvidante: req.body.idConvidante });
     res.json({ status: 1, data: result });
@@ -93,6 +93,16 @@ router_cliente.get('/', async (req, res) => {
 router_cliente.get('/listar', async (req, res) => {
     const result = await cliente.findAll({
         attributes: [['id', 'code'], ['nome', 'name']],
+        include: [
+            {
+                model: usuario,
+                required: true
+            },
+            {
+                model: plano,
+                required: true
+            },
+        ],
         order: [
             ['nome', 'ASC'],
         ],

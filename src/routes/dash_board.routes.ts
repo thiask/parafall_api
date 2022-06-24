@@ -27,5 +27,26 @@ router_dash_board.get('/estatistics/vendas/:dataInicial/:dataFinal/:idCliente', 
     res.json(result[0]);
 });
 
+router_dash_board.get('/estatistics/contasRecebidas/:dataInicial/:dataFinal/:idCliente', async (req, res) => {
+
+    const getIdClient = () => {
+
+        if (req.params.idCliente !== '0')
+            return ` AND clientes.id = ${req.params.idCliente}`;
+        else return '';
+    }
+
+    const aux = getIdClient();
+
+    const sql = `SELECT sum(contasrecebers.valor) as totalVendido, clientes.nome FROM contasrecebers
+    INNER JOIN clientes on clientes.id = contasrecebers.idCliente
+    WHERE contasrecebers.dataPagamento BETWEEN '${req.params.dataInicial}' AND '${req.params.dataFinal} 23:59' ${getIdClient()}
+    GROUP BY contasrecebers.idCliente`;
+
+    const result = await sequelize.query(sql);
+    console.log(result);
+    res.json(result[0]);
+});
+
 
 export default router_dash_board;
