@@ -18,7 +18,7 @@ router_processo.get('/listar', async (req, res) => {
     INNER JOIN planos on planos.id = clientes.idPlano
     order by processos.id desc`);
     let aux: any = {};
-    const newArray = await Promise.all(result[0].map(async value => {
+    const newArray = await Promise.all(result[0].map(async (value: any) => {
 
         const result2 = await sequelize.query(`SELECT itens_processos.*, servicos.nome FROM itens_processos
         INNER JOIN servicos on servicos.id = itens_processos.idServico

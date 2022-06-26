@@ -203,7 +203,8 @@ router_venda.put('/itens_venda/acresentar', async (req, res) => {
 
         {
             where: {
-                idVenda: req.body.idVenda
+                idVenda: req.body.idVenda,
+                idProduto: req.body.idProduto,
             }
         });
 
