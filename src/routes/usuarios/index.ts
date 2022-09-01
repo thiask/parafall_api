@@ -55,6 +55,11 @@ router_usuarios.post('/login/', async (req, res) => {
 
 });
 
+router_usuarios.get('/listar', async (req, res) => {
+    const result = await usuario.findAll();
+    res.json(result);
+});
+
 router_usuarios.get('/listar/:usuario', async (req, res) => {
     const result = await usuario.findAll({
         where: {
