@@ -15,15 +15,29 @@ router_dash_board.get('/estatistics/vendas/:dataInicial/:dataFinal/:idCliente', 
 
     const aux = getIdClient();
 
-    const sql = `SELECT count(itens_vendas.id) as qtdVendida, sum(itens_vendas.valor * itens_vendas.qtd) as totalVendido, produtos.descricao FROM vendas
+    const sql = `SELECT produtos.id as idProduto, sum(itens_vendas.qtd) as qtdVendida, sum(itens_vendas.valor * itens_vendas.qtd) as totalVendido, produtos.descricao FROM vendas
     INNER JOIN itens_vendas on itens_vendas.idVenda = vendas.id
     INNER JOIN produtos on produtos.id = itens_vendas.idProduto
     INNER JOIN clientes on clientes.id = vendas.idCliente
     WHERE vendas.createdAt BETWEEN '${req.params.dataInicial}' AND '${req.params.dataFinal} 23:59' ${getIdClient()}
     group by produtos.id`;
 
-    const result = await sequelize.query(sql);
-    console.log(result);
+    const result: any = await sequelize.query(sql);
+    let clientes: any = [];
+
+    if (aux == '') {
+        for (let index = 0; index < result[0].length; index++) {
+            const sql = `SELECT clientes.nome, itens_vendas.qtd, itens_vendas.valor FROM itens_vendas
+            INNER JOIN vendas on vendas.id = itens_vendas.idVenda
+            INNER JOIN clientes on clientes.id = vendas.idCliente
+            WHERE idProduto = ${result[0][index].idProduto} AND itens_vendas.createdAt BETWEEN '${req.params.dataInicial}' AND '${req.params.dataFinal} 23:59'`;
+            const newClientes: any = await sequelize.query(sql);
+            console.log(sql);
+
+            result[0][index].clientes = newClientes[0];
+        }
+    }
+
     res.json(result[0]);
 });
 
